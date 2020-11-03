@@ -16,7 +16,7 @@ public:
         setSize (300, 400);
         addChangeListener (this);
     }
-    void setSwatchColour (int index, const Colour& newColour) const
+    void setSwatchColour ([[maybe_unused]] int index, const Colour& newColour) override
     {
         targetColour = newColour;
         comp.repaint();
@@ -136,7 +136,7 @@ public:
         openButton  .setBounds (getLocalBounds().withTop (getHeight() - 20));
     }
 
-    void updateFont (const Typeface::Ptr& typefaceToUse)
+    void updateFont ([[maybe_unused]] const Typeface::Ptr& typefaceToUse)
     {
         float h = font.getHeight();
         font = Font (newTypeface);
