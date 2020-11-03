@@ -29,15 +29,15 @@ public:
         typedef ReferenceCountedObjectPtr<DataSnapshot> Ptr;
 
         /** DataSnapshot holds a single copy of the buffer. */
-        DataSnapshot (const String& name, const float* dataToCopy,
-                      int size, float min, float max)
+        DataSnapshot (const String& _name, const float* dataToCopy,
+                      int _size, float min, float max)
             :
 
-            data (size* sizeof (float), false),
-            size (size),
-            name (name)
+            data ((size_t) _size* sizeof (float), false),
+            size (_size),
+            name (_name)
         {
-            data.copyFrom (dataToCopy, 0, sizeof (float) * size);
+            data.copyFrom (dataToCopy, 0, sizeof (float) * (size_t)size);
             setMinMax (min, max);
         }
         ~DataSnapshot()
@@ -123,8 +123,8 @@ public:
     }
 
     /** Appends the buffer to an osciliscope view */
-    void oscilloscope (const String& name,
-                       float* data, int size, float min, float max)
+    void oscilloscope ([[maybe_unused]] const String& name,
+                       [[maybe_unused]]float* data, [[maybe_unused]]int size, [[maybe_unused]]float min, [[maybe_unused]]float max)
     {
         ScopedLock lock (dataBufferLock);
         jassertfalse;
@@ -185,12 +185,12 @@ public:
         public Component
     {
     public:
-        Graph (BufferDebuggerMain& owner)
+        Graph (BufferDebuggerMain& _owner)
             :
             mouseOverGraph (false),
             mouseX (0),
             mouseY (0),
-            owner (owner),
+            owner (_owner),
             src (nullptr)
         {}
 
@@ -249,7 +249,7 @@ public:
                 g.setColour (Colours::red);
                 g.setFont (11.0f);
                 const String comment = "index = " + String (getIndexForX (mouseX))
-                                       + "   value = " + String (src->getRaw (getIndexForX (mouseX)));
+              + "   value = " + String (src->getRaw (roundToInt(getIndexForX (mouseX))));
 
                 g.drawText (comment, 4, 4, getWidth() - 8, 20, Justification::left, false);
             }
@@ -262,12 +262,12 @@ public:
             repaint();
         }
 
-        void mouseEnter (const MouseEvent& e)
+        void mouseEnter ([[maybe_unused]] const MouseEvent& e)
         {
             mouseOverGraph = true;
         }
 
-        void mouseExit (const MouseEvent& e)
+        void mouseExit ([[maybe_unused]] const MouseEvent& e)
         {
             mouseOverGraph = false;
         }
@@ -282,8 +282,8 @@ public:
         void getMinMaxForPosition (float stloc, float endloc,
                                    float& min, float& max)
         {
-            int st = stloc;
-            int ed = endloc;
+          int st = static_cast<int>(stloc);
+          int ed = static_cast<int>(endloc);
             /* This looks like a C++11 ism. */
             max = std::numeric_limits<float>::lowest();
             min = (std::numeric_limits<float>::max) ();
@@ -314,9 +314,9 @@ public:
         public Component
     {
     public:
-        Info (BufferDebuggerMain& owner)
+        Info (BufferDebuggerMain& _owner)
             :
-            owner (owner)
+            owner (_owner)
         {
             addAndMakeVisible (info);
             info.setReadOnly (true);
@@ -379,9 +379,9 @@ public:
         public ListBoxModel
     {
     public:
-        List (BufferDebuggerMain& owner)
+        List (BufferDebuggerMain& _owner)
             :
-            owner (owner)
+            owner (_owner)
         {
             addAndMakeVisible (list);
             list.setModel (this);
@@ -405,7 +405,7 @@ public:
             g.drawText (s, 0, 0, width, height, Justification::left, false);
         }
 
-        void listBoxItemClicked (int row, const MouseEvent& e) override
+        void listBoxItemClicked ([[maybe_unused]] int row, [[maybe_unused]] const MouseEvent& e) override
         {
             owner.bufferListUpdated();
         }
@@ -445,7 +445,7 @@ public:
 
     BufferDebuggerMain();
 
-    ~BufferDebuggerMain();
+  ~BufferDebuggerMain() override;
 
     void timerCallback() override
     {

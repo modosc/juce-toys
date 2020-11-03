@@ -12,9 +12,9 @@ class ComponentBoundsEditor
     public Component
 {
 public:
-    ComponentBoundsEditor (ComponentDebugger::Debugger* owner)
+    ComponentBoundsEditor (ComponentDebugger::Debugger* _owner)
         :
-        owner (owner)
+        owner (_owner)
     {
         Array<PropertyComponent*> p;
         p.add (new TextPropertyComponent (x, "x", 10, false));
@@ -157,10 +157,10 @@ void ComponentDebugger::Debugger::setComponentToEdit (Component* c)
 
 /**********************************************************/
 
-ComponentDebugger::ComponentTreeViewItem::ComponentTreeViewItem (Debugger* owner,
+ComponentDebugger::ComponentTreeViewItem::ComponentTreeViewItem (Debugger* _owner,
         Component* c)
     :
-    owner (owner),
+    owner (_owner),
     outsideBoundsFlag (false),
     component (c)
 {

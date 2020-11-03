@@ -23,47 +23,47 @@
 class ValueTreeDebuggerMain;
 
 class ValueTreeDebugger :
-    public DocumentWindow
+public DocumentWindow
 {
 public:
-    /**
-     @class Display a separate desktop window for viewed and editing a value
-     tree's property fields.
+  /**
+   @class Display a separate desktop window for viewed and editing a value
+   tree's property fields.
 
-     Instantate a ValueTreeDebugger instance, then call
-     ValueTreeDebugger::setSource(ValueTree &) and it'll display your
-     tree.
+   Instantate a ValueTreeDebugger instance, then call
+   ValueTreeDebugger::setSource(ValueTree &) and it'll display your
+   tree.
 
-     For example:
+   For example:
 
-     @code
-     vd = new ValueTreeDebugger();
-     vd->setSource(myTree);
-     @endcode
+   @code
+   vd = new ValueTreeDebugger();
+   vd->setSource(myTree);
+   @endcode
 
-     @note This code isn't pretty - it's for debugging, not production use!
-     */
-    ValueTreeDebugger();
+   @note This code isn't pretty - it's for debugging, not production use!
+   */
+  ValueTreeDebugger();
 
-    ValueTreeDebugger (ValueTree& treeToShow);
+  ValueTreeDebugger (ValueTree& treeToShow);
 
-    ~ValueTreeDebugger();
+  ~ValueTreeDebugger() override;
 
-    void closeButtonPressed() override;
+  void closeButtonPressed() override;
 
-    /**
-     * Call setSource(ValueTree&) to show a particular ValueTree in
-     * the editor. If you attach all the ValueTree's in your program
-     * to a common root, you'll be able to view the whole thing in
-     * one editor.
-     */
-    void setSource (ValueTree& treeToShow);
+  /**
+   * Call setSource(ValueTree&) to show a particular ValueTree in
+   * the editor. If you attach all the ValueTree's in your program
+   * to a common root, you'll be able to view the whole thing in
+   * one editor.
+   */
+  void setSource (ValueTree& treeToShow);
 
 private:
-    void construct(); 
-    std::unique_ptr<ValueTreeDebuggerMain> main;
+  void construct();
+  std::unique_ptr<ValueTreeDebuggerMain> main;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ValueTreeDebugger);
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ValueTreeDebugger)
 };
 
 

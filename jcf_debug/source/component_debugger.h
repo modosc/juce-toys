@@ -97,7 +97,7 @@ public:
     public:
         Debugger (Component* rootComponent);
 
-        ~Debugger();
+        ~Debugger() override;
 
         void buttonClicked (Button*) override;
         void refresh();
