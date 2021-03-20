@@ -6,6 +6,9 @@ public:
   public:
     PropertyEditor() { noEditValue = "not editable"; }
 
+    const Identifier id{"id"};
+    const Identifier description{"description"};
+
     void setSource(ValueTree &newSource) {
       clear();
 
@@ -20,12 +23,21 @@ public:
         Value v = tree.getPropertyAsValue(name, nullptr);
         TextPropertyComponent *tpc;
 
+        bool isEditable{true};
+        if (name == id)
+          isEditable = false;
+
+        bool isMultiline{false};
+        if (name == description)
+          isMultiline = true;
+
         if (v.getValue().isObject()) {
           tpc = new TextPropertyComponent(
-              noEditValue, name.toString(), maxChars, false);
+              noEditValue, name.toString(), maxChars, isMultiline, isEditable);
           tpc->setEnabled(false);
         } else {
-          tpc = new TextPropertyComponent(v, name.toString(), maxChars, false);
+          tpc = new TextPropertyComponent(
+              v, name.toString(), maxChars, isMultiline, isEditable);
         }
 
         pc.add(tpc);
@@ -94,21 +106,6 @@ public:
       for (int i = 0; i < t.getNumProperties(); ++i) {
         const Identifier name = t.getPropertyName(i).toString();
         String propertyValue = t.getProperty(name).toString();
-        ;
-#ifdef JCF_SERIALIZER
-
-        /* Code for handling valuetree serialization classes I use internally.
-         They allow ReferenceCountedObjects that are stored in the tree
-         to save, load and display debug information easily. You won't
-         need this but it makes my life easier to leave it here - Jim. */
-        if (t[name].isObject()) {
-          ReferenceCountedObject *p = t[name].getObject();
-
-          if (Serializable *s = dynamic_cast<Serializable *>(p))
-            propertyValue = "[[" + s->getDebugInformation() + "]]";
-        }
-
-#endif
         propertySummary += " " + name.toString() + "=" + propertyValue;
       }
 
