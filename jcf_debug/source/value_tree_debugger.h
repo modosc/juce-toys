@@ -1,6 +1,7 @@
 #ifndef VALUE_TREE_EDITOR_H_INCLUDED
 #define VALUE_TREE_EDITOR_H_INCLUDED
 
+#include "value_tree_debugger_main.h"
 /*
  * (c) Credland Technical Limited.
  * MIT License
@@ -20,11 +21,7 @@
  * Contact via http://www.credland.net/
  */
 
-class ValueTreeDebuggerMain;
-
-class ValueTreeDebugger :
-public DocumentWindow
-{
+class ValueTreeDebugger : public DocumentWindow {
 public:
   /**
    @class Display a separate desktop window for viewed and editing a value
@@ -45,7 +42,7 @@ public:
    */
   ValueTreeDebugger();
 
-  ValueTreeDebugger (ValueTree& treeToShow);
+  ValueTreeDebugger(ValueTree &treeToShow);
 
   ~ValueTreeDebugger() override;
 
@@ -57,14 +54,13 @@ public:
    * to a common root, you'll be able to view the whole thing in
    * one editor.
    */
-  void setSource (ValueTree& treeToShow);
+  void setSource(ValueTree &treeToShow);
 
 private:
   void construct();
   std::unique_ptr<ValueTreeDebuggerMain> main;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ValueTreeDebugger)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ValueTreeDebugger)
 };
 
-
-#endif  // VALUE_TREE_EDITOR_H_INCLUDED
+#endif // VALUE_TREE_EDITOR_H_INCLUDED
