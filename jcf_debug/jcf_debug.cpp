@@ -10,6 +10,7 @@ using namespace juce;
 #include "source/value_tree_debugger.cpp"
 #include "source/buffer_debugger.cpp"
 #include "source/component_debugger.cpp"
+#if JUCE_MODAL_LOOPS_PERMITTED
 #include "source/font_and_colour_designer.cpp"
-
+#endif
 }
