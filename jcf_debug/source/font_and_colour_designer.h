@@ -14,17 +14,17 @@ class FontAndColorContent;
 
 class FontAndColourDesigner
     :
-    public Component
+    public juce::Component
 {
 public:
-    FontAndColourDesigner (Component& parentComponent,
-                           Colour& colourToUpdate,
-                           Font& fontToUpdate);
+    FontAndColourDesigner (juce::Component& parentComponent,
+                           juce::Colour& colourToUpdate,
+                           juce::Font& fontToUpdate);
 
-    void paint (Graphics& g) override;
-    void mouseUp (const MouseEvent&) override;
+    void paint (juce::Graphics& g) override;
+    void mouseUp (const juce::MouseEvent&) override;
 private:
-    DocumentWindow window;
+    juce::DocumentWindow window;
     std::unique_ptr<FontAndColorContent> content;
 };
 
