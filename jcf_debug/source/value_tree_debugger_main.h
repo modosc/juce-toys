@@ -1,8 +1,8 @@
 #pragma once
 /** Display a tree. */
-class ValueTreeDebuggerMain : public Component {
+class ValueTreeDebuggerMain : public juce::Component {
 public:
-  class PropertyEditor : public PropertyPanel {
+  class PropertyEditor : public juce::PropertyPanel {
   public:
     PropertyEditor() { noEditValue = "not editable"; }
 
