@@ -234,12 +234,12 @@ public:
                 float idx2 = getIndexForX (x + 1);
                 getMinMaxForPosition (idx, idx2, a, b);
 
-                g.drawLine (float (x), a * h, x + 1.0f, b * h);
+                g.drawLine (float (x), a * h, static_cast<float> (x) + 1.0f, b * h);
 
                 if (mouseOverGraph && x == mouseX)
                 {
                     g.setColour (Colours::red);
-                    g.drawLine (float (x) + 0.5f, 0.0, float (x) + 0.5f, getHeight());
+                    g.drawLine (float (x) + 0.5f, 0.0, float (x) + 0.5f, static_cast<float> (getHeight()));
                     g.setColour (Colours::blue);
                 }
             }
@@ -276,7 +276,7 @@ public:
 
         float getIndexForX (int x)
         {
-            return entriesPerPixel * x;
+            return entriesPerPixel * static_cast<float> (x);
         }
 
         void getMinMaxForPosition (float stloc, float endloc,
