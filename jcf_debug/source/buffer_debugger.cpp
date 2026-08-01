@@ -321,7 +321,7 @@ public:
             addAndMakeVisible (info);
             info.setReadOnly (true);
             info.setMultiLine (true);
-            info.setFont (Font ("Courier", 12.0f, 0));
+            info.setFont (Font (FontOptions ("Courier", 12.0f, 0)));
         }
 
         void resized()

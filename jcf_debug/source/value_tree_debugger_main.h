@@ -81,8 +81,8 @@ public:
     }
 
     void paintItem(Graphics &g, int w, int h) {
-      Font font;
-      Font smallFont(11.0);
+      Font font{FontOptions{}};
+      Font smallFont(FontOptions(11.0f));
       if (isSelected())
         g.fillAll(base0);
 
@@ -90,7 +90,7 @@ public:
 
       String typeName = t.getType().toString();
 
-      const float nameWidth = font.getStringWidthFloat(typeName);
+      const float nameWidth = GlyphArrangement::getStringWidth(font, typeName);
       const float propertyX = padding + nameWidth;
 
       g.setColour(isSelected() ? base04 : base0);
