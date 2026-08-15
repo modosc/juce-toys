@@ -29,7 +29,9 @@
 
 #ifndef JCF_DEBUG_H_INCLUDED
 #define JCF_DEBUG_H_INCLUDED
-#include "AppConfig.h"
+#ifndef JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED
+ #include "AppConfig.h"
+#endif
 #include <map>
 #include <juce_core/juce_core.h>
 #include <juce_graphics/juce_graphics.h>
