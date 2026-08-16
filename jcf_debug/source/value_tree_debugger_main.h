@@ -112,7 +112,7 @@ public:
       g.drawText(propertySummary,
                  (int)rint(propertyX),
                  0,
-                 w - (int)rint(propertyX),
+                 jmax(0, w - (int)rint(propertyX)),
                  h,
                  Justification::left,
                  true);
